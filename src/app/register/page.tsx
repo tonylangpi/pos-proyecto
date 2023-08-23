@@ -1,8 +1,10 @@
-import React from 'react'
-
+"use client";
+import dynamic from 'next/dynamic';
+//import Spin from '@/components/Spinner';
+const FormRegister = dynamic(() => import('@/components/FormRegister'), { ssr: false, loading:() => <p>Cagando</p>})
 const Register = () => {
   return (
-    <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-blue-600 md:text-5xl lg:text-6xl">Register</h1>
+    <FormRegister/>
   )
 }
 
