@@ -40,7 +40,7 @@ const handler = NextAuth({
               nombre: token.user.nombre,
               correo: token.user.correo,
               celular: token.user.celular,
-              idRole: token.user.idRole
+              idRole: token.user.idRoleS
             }
             session.user = users as any
             return session;

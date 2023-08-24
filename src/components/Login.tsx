@@ -58,7 +58,6 @@ const CardLogin = () => {
         </form>
       </Card>
       <Image
-      className="basis-2/4"
       src={Logo}
       width={600}
       height={500}

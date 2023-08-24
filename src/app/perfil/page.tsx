@@ -3,10 +3,8 @@ import { Card} from 'flowbite-react';
 import { useSession, signOut } from "next-auth/react";
 const Perfil = () => {
   const { data: session, status } = useSession();
-
-  console.log(session);
   return (
-    <Card className='basis-2/4 w-40'>
+    <Card>
     <div className="flex flex-col">
       <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
         {session?.user?.nombre}

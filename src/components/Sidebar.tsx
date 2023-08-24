@@ -10,30 +10,25 @@ import {
   HiUser,
   HiViewBoards,
 } from "react-icons/hi";
-import { AnyARecord } from "dns";
-
+import Link from 'next/link';
 const Slidebar = () => {
   const { data: session, status } = useSession();
   return (() => {
     switch (status) {
       case "authenticated": //si el usuario esta autenticado retorna el dashboard
         return (
-          <Sidebar aria-label="Sidebar with multi-level dropdown example h-screen">
+          <div className="w-72 h-screen">
+                  <Sidebar aria-label="Sidebar with multi-level dropdown example h-screen">
             <Sidebar.Items>
               <Sidebar.ItemGroup>
-                <Sidebar.Item href="/" icon={HiChartPie}>
-                  <p>INICIO</p>
+                <Sidebar.Item as={Link} href="/" icon={HiChartPie}>
+                      INICIO
                 </Sidebar.Item>
-                <Sidebar.Collapse icon={HiShoppingBag} label="Productos">
-                  <Sidebar.Item href="#">Products</Sidebar.Item>
-                  <Sidebar.Item href="#">Sales</Sidebar.Item>
-                  <Sidebar.Item href="#">Refunds</Sidebar.Item>
-                  <Sidebar.Item href="#">Shipping</Sidebar.Item>
-                </Sidebar.Collapse>
-                <Sidebar.Collapse icon={HiShoppingBag} label="Seguridad">
-                  <Sidebar.Item href="/register">Usuarios</Sidebar.Item>
+                <Sidebar.Item icon={HiShoppingBag} as={Link} href="/productos">Productos</Sidebar.Item>
+                <Sidebar.Collapse icon={HiUser} label="Seguridad">
+                  <Sidebar.Item as={Link} href="/register">USUARIOS</Sidebar.Item>
                   <Sidebar.Item href="#">Roles</Sidebar.Item>
-                  <Sidebar.Item href="/perfil">Perfil</Sidebar.Item>
+                  <Sidebar.Item as={Link} href="/perfil">Perfil</Sidebar.Item>
                 </Sidebar.Collapse>
                 <Sidebar.Item>
                   <Button
@@ -48,6 +43,7 @@ const Slidebar = () => {
               </Sidebar.ItemGroup>
             </Sidebar.Items>
           </Sidebar>
+          </div>
         );
       case "loading":
         return null;
