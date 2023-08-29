@@ -1,4 +1,3 @@
-"use client";
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -17,7 +16,6 @@ const CardLogin = () => {
       password: formData.get("password"),
       redirect: false,
     });
-
     if (res?.error) return setError(res.error as string);
 
     if (res?.ok) return router.push("/");

@@ -1,8 +1,9 @@
 import  {NextResponse, NextRequest} from 'next/server'
 import  {pool}  from '@/app/config/db'; //traemos la conexion a la bd para manipular datos
+import { RowDataPacket } from "mysql2";
 const bcryptjs = require("bcryptjs");
 export async function POST(req: Request){
-    const {nombre, correo, celular, clave, idRole} = await req.json(); 
+    const {nombre, correo, celular, clave, idRol} = await req.json(); 
     let passwordHash = await bcryptjs.hash(clave, 10);
 
   const emailregex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
@@ -11,7 +12,7 @@ export async function POST(req: Request){
       !correo ||
       !celular ||
       !clave  || 
-      !idRole ) {
+      !idRol ) {
              return  NextResponse.json({
                  message: "Faltan datos"
              }); 
@@ -31,10 +32,9 @@ export async function POST(req: Request){
               correo:correo,
               celular:celular,
               clave: passwordHash,
-              idRole:idRole
+              idRol:idRol
             })
- 
-         return NextResponse.json({message: "USUARIO GUARDADO EXITOSAMENTE"});
+         return NextResponse.json({message: "usuario creado"});
        }
   } catch (error) {
       console.log(error);

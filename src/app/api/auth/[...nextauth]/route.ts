@@ -7,7 +7,8 @@ interface usuarios{
   nombre: string;
   correo: string;
   celular: string;
-  idRole: number;
+  Nivel: string; 
+  Rol: string;
 }
 
 const handler = NextAuth({
@@ -19,12 +20,15 @@ const handler = NextAuth({
              password: {label:"Password", type: "password"}
           },
           async authorize(credentials) {
-            const [rows] = await pool.query('SELECT * FROM usuario WHERE correo = ?', [credentials?.email]);
+            const [rows] = await pool.query('SELECT usu.idUsuario,usu.nombre,usu.correo,usu.celular, usu.clave, niv.nombreNivel, Rol.descripcion as rol FROM usuario usu inner join Rol  on Rol.idRol = usu.idRol inner join Nivel niv on niv.idNivel = Rol.idNivel WHERE usu.correo = ? ', [credentials?.email]);
             let usuarioEncontrado: any = rows;
             let objetoUsuario = usuarioEncontrado[0];
             if(objetoUsuario == undefined) throw new Error("Credenciales invalidas"); 
             const passworMatch = await bcrypt.compare(credentials!.password, objetoUsuario.clave);
-            if(!passworMatch) throw new Error("contraseña invalida o no correcta"); 
+            if(!passworMatch) throw new Error("Credenciales invalidas"); 
+            await pool.query('INSERT INTO Bitacora SET ?',{
+              idUsuario:objetoUsuario.idUsuario
+            })
             return  objetoUsuario; 
           }
         })
@@ -40,7 +44,8 @@ const handler = NextAuth({
               nombre: token.user.nombre,
               correo: token.user.correo,
               celular: token.user.celular,
-              idRole: token.user.idRoleS
+              Nivel: token.user.nombreNivel,
+              Rol: token.user.rol
             }
             session.user = users as any
             return session;

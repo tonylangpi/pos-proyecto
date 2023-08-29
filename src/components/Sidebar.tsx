@@ -1,6 +1,7 @@
 "use client";
 import { useSession, signOut } from "next-auth/react";
 import { Sidebar, Button } from "flowbite-react";
+import Spin from '@/components/Spinner';
 import {
   HiArrowSmRight,
   HiChartPie,
@@ -17,7 +18,7 @@ const Slidebar = () => {
     switch (status) {
       case "authenticated": //si el usuario esta autenticado retorna el dashboard
         return (
-          <div className="w-72 h-screen">
+             <div className="w-72 h-screen">
                   <Sidebar aria-label="Sidebar with multi-level dropdown example h-screen">
             <Sidebar.Items>
               <Sidebar.ItemGroup>

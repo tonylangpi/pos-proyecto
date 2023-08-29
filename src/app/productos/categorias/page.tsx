@@ -1,8 +1,16 @@
-import React from 'react'
 
-const Categorias = () => {
+import Tabla from '@/components/Tabla'; 
+async function loadPost(){
+  const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const data = await res.json();
+  return data; 
+}
+ const Categorias = async() => {
+   const datos =  await loadPost();
   return (
-    <div>Categorias</div>
+   <>
+        <Tabla datos={datos}/>
+    </>
   )
 }
 
